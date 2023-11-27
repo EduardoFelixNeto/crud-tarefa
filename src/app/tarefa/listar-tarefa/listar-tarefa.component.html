@@ -1,0 +1,40 @@
+<div style="padding-left: 15%; padding-right: 15%;" class="container mt-5">
+    <h1>Tarefas</h1>
+    <table class="table table-striped table-bordered table-hover">
+        <tbody>
+            <tr>
+                <th>Identificador da Tarefa</th>
+                <th>Nome</th>
+                <th>Custo</th>
+                <th>Data Limite</th>
+                <th class="text-center">
+                    <a [routerLink]="['/tarefas/novo']" href="#" title="Novo" alt="Novo" class="btn btn-xs btn-success">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                    </a>
+                </th>
+                <th>Mudar ordem</th>
+            </tr>
+            <tr *ngFor="let tarefa of tarefas" [ngClass]="{'destaque-custo-alto': tarefa.custo! >= 1000}">
+                <td>{{tarefa.tarefaId}}</td>
+                <td>{{tarefa.nome}}</td>
+                <td>{{ tarefa.custo | currency:'BRL':'symbol-narrow' }}</td>
+                <td>{{tarefa.dataLimite | date:'dd/MM/yyyy'}}</td>
+                <td class="text-center" style="width: 300px">
+                    <a [routerLink]="['/tarefas/editar', tarefa.tarefaId]" href="#" title="Editar" alt="Editar"
+                    style="display: inline; margin: 1%;" class="btn btn-xs btn-info">
+                        <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                    </a>
+                    <a href="#" title="Remover" alt="Remover" class="btn btn-xs btn-danger"
+                    style="display: inline; margin: 1%;" (click)="remover($event,tarefa)">
+                        <i class="fa fa-times" aria-hidden="true"></i> Remover
+                    </a>
+                </td>
+                <td>
+                    <button class="btn" (click)="moverParaCima(tarefa)"><i class="fa-solid fa-arrow-up"></i></button>
+                    <button class="btn" (click)="moverParaBaixo(tarefa)"><i class="fa-solid fa-arrow-down"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p *ngIf="tarefas.length==0">Nenhuma tarefa cadastrada.</p>
+</div>

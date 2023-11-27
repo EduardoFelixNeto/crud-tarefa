@@ -1,0 +1,41 @@
+<div style="padding-left: 15%; padding-right: 15%;" class="container mt-5">
+    <h1>Editar Pessoa</h1>
+    <div class="well">
+        <form #formTarefa="ngForm">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input [(ngModel)]="tarefa.nome" #nome="ngModel" type="text" class="form-control" id="nome" name="nome"
+                    required>
+                <div *ngIf="nome.errors && (nome.dirty || nome.touched)" class="alert alert-danger">
+                    <div [hidden]="!nome.errors?.['required']"> Digite o nome da tarefa. </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="custo">Custo:</label>
+                <input [(ngModel)]="custoFormatado" appCurrencyMask #custo="ngModel" type="text" class="form-control"
+                    id="custo" name="custo" required>
+                <div *ngIf="custo.errors && (custo.dirty || custo.touched)" class="alert alert-danger">
+                    <div [hidden]="!custo.errors?.['required']"> Digite o custo da tarefa. </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dataLimite">Data Limite:</label>
+                <input [(ngModel)]="tarefa.dataLimite" #dataLimite="ngModel" type="date" class="form-control"
+                    id="dataLimite" name="dataLimite" required>
+                <div *ngIf="dataLimite.errors && (dataLimite.dirty || dataLimite.touched)" class="alert alert-danger">
+                    <div [hidden]="!dataLimite.errors?.['required']"> Informe a data limite. </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary" (click)="atualizar()" style="display: inline; margin: 1%;"
+                    [disabled]="!formTarefa.form.valid">
+                    <i class="fa fa-save" aria-hidden="true"></i> Atualizar
+                </button>
+                <a class="btn btn-secondary" style="display: inline; margin: 1%;" [routerLink]="['/tarefas']">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+                </a>
+            </div>
+        </form>
+        <p *ngIf="mensagem.length>0">{{mensagem}}</p>
+    </div>
+</div>
